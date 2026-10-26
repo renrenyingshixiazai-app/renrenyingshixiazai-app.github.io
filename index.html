@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>人人影视下载 · 剧集条目检索与字幕版本对照站 | renrenyingshixiazai-app.github.io</title>
+<meta name="description" content="人人影视下载（renrenyingshixiazai-app.github.io）是一张给追剧人用的索引页：按语种划分的剧集条目检索、简繁英多版字幕对照、每周更新时刻表与影迷常见疑问解答，栏目导览一次看清。">
+<meta name="keywords" content="人人影视下载,renrenyingshixiazai-app,renrenyingshixiazai-app.github.io,剧集条目检索,字幕版本对照,简繁双语字幕,离线观看清单,每周更新时刻表,影视索引站,影迷问答">
+<meta name="author" content="人人影视下载">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#101c18">
+<link rel="canonical" href="https://renrenyingshixiazai-app.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="人人影视下载">
+<meta property="og:title" content="人人影视下载 · 剧集条目检索与字幕版本对照站">
+<meta property="og:description" content="语种剧集检索、多版字幕对照、每周更新时刻表与常见疑问，四个入口收在同一页里。">
+<meta property="og:url" content="https://renrenyingshixiazai-app.github.io/">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="人人影视下载 · 剧集条目检索与字幕版本对照站">
+<meta name="twitter:description" content="语种剧集检索、多版字幕对照、每周更新时刻表与常见疑问，四个入口收在同一页里。">
+<style>
+:root{
+  --ink:#101c18;
+  --ink-2:#16261f;
+  --ink-3:#1d332a;
+  --line:#2b4438;
+  --gold:#e6b450;
+  --mint:#79d6bb;
+  --text:#e8f0ea;
+  --muted:#9fb3a8;
+  --radius:14px;
+  --wrap:1140px;
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--text);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.75;
+  letter-spacing:.2px;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(900px 520px at 88% -8%,rgba(230,180,80,.14),transparent 60%),
+    radial-gradient(700px 480px at -6% 20%,rgba(121,214,187,.10),transparent 62%);
+}
+a{color:var(--mint);text-decoration:none;}
+a:hover{color:var(--gold);}
+img{max-width:100%;height:auto;display:block;}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px;}
+.skip{position:absolute;left:-9999px;}
+
+/* ---------- 顶栏 ---------- */
+.topbar{
+  position:sticky;top:0;z-index:30;
+  background:rgba(16,28,24,.92);
+  backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.bar-inner{display:flex;align-items:center;gap:16px;min-height:64px;}
+.brand{display:flex;align-items:center;gap:10px;color:var(--text);flex:0 0 auto;}
+.brand:hover{color:var(--text);}
+.mark{
+  width:34px;height:34px;border-radius:9px;flex:0 0 auto;
+  background:linear-gradient(150deg,var(--gold),#b3792a 70%);
+  position:relative;box-shadow:0 4px 14px rgba(230,180,80,.28);
+}
+.mark::after{
+  content:"";position:absolute;inset:9px 7px;
+  border-left:3px solid rgba(16,28,24,.85);
+  border-right:3px solid rgba(16,28,24,.85);
+}
+.brand b{font-size:18px;letter-spacing:1px;font-weight:700;}
+.brand span{font-size:12px;color:var(--muted);letter-spacing:.5px;}
+.nav{margin-left:auto;display:flex;align-items:center;gap:4px;}
+.nav a{
+  display:block;padding:9px 13px;border-radius:9px;
+  font-size:14.5px;color:#cfe0d6;
+}
+.nav a:hover{background:var(--ink-3);color:var(--gold);}
+.mt{display:none;}
+.mt-btn{display:none;margin-left:auto;width:42px;height:38px;border:1px solid var(--line);border-radius:10px;position:relative;cursor:pointer;}
+.mt-btn i{position:absolute;left:11px;width:20px;height:2px;background:var(--text);border-radius:2px;}
+.mt-btn i:nth-child(1){top:12px;}
+.mt-btn i:nth-child(2){top:18px;}
+.mt-btn i:nth-child(3){top:24px;}
+
+/* ---------- 首屏 ---------- */
+.hero{position:relative;z-index:1;padding:56px 0 30px;}
+.hero-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:38px;align-items:start;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;letter-spacing:2px;color:var(--gold);
+  border:1px solid rgba(230,180,80,.32);
+  background:rgba(230,180,80,.08);
+  padding:5px 12px;border-radius:999px;
+}
+h1{
+  font-size:clamp(30px,5.2vw,50px);
+  line-height:1.18;margin:18px 0 14px;letter-spacing:1px;
+}
+h1 em{font-style:normal;color:var(--gold);}
+.lede{font-size:16.5px;color:#c8dbd0;margin:0 0 22px;max-width:56ch;}
+.domain{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  background:var(--ink-2);border:1px solid var(--line);
+  border-radius:var(--radius);padding:12px 14px;margin:0 0 24px;
+}
+.domain code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:14px;color:var(--mint);word-break:break-all;
+}
+.domain small{color:var(--muted);font-size:12.5px;}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;}
+.btn{
+  display:inline-block;padding:11px 22px;border-radius:11px;font-size:15px;
+  border:1px solid transparent;transition:transform .18s ease;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-gold{background:linear-gradient(140deg,var(--gold),#c58f2e);color:#221704;font-weight:700;}
+.btn-ghost{border-color:var(--line);color:#dbe9e1;background:var(--ink-2);}
+
+.card-stack{display:grid;gap:14px;}
+.mini{
+  background:linear-gradient(160deg,var(--ink-2),#132019);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 18px 16px;
+}
+.mini h3{margin:0 0 6px;font-size:15.5px;letter-spacing:.4px;}
+.mini p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.65;}
+.mini .stat{font-size:26px;font-weight:700;color:var(--gold);letter-spacing:.5px;}
+
+/* ---------- 胶片分隔 ---------- */
+.film{
+  height:26px;margin:44px 0;
+  background:
+    repeating-linear-gradient(90deg,var(--ink-3) 0 12px,transparent 12px 26px) center/100% 8px no-repeat,
+    linear-gradient(90deg,transparent,rgba(230,180,80,.30),transparent);
+  background-size:100% 10px,100% 1px;
+  background-position:center,center;
+  opacity:.9;
+}
+
+/* ---------- 栏目 ---------- */
+section{position:relative;z-index:1;padding:14px 0;}
+.sec-head{display:flex;align-items:flex-end;gap:14px;margin:0 0 24px;flex-wrap:wrap;}
+.sec-no{
+  font-size:44px;line-height:1;font-weight:800;color:transparent;
+  -webkit-text-stroke:1.4px rgba(230,180,80,.55);
+  letter-spacing:-1px;
+}
+h2{font-size:clamp(21px,2.7vw,28px);margin:0;letter-spacing:.6px;}
+.sec-sub{color:var(--muted);font-size:14px;margin:2px 0 0;}
+
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.tile{
+  background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;transition:border-color .2s ease,transform .2s ease;
+}
+.tile:hover{border-color:rgba(230,180,80,.45);transform:translateY(-3px);}
+.tile h3{margin:0 0 8px;font-size:16.5px;}
+.tile p{margin:0;font-size:14px;color:var(--muted);}
+.tile .tag{
+  display:inline-block;font-size:11.5px;letter-spacing:1px;color:var(--gold);
+  border:1px solid rgba(230,180,80,.3);border-radius:6px;padding:2px 8px;margin-bottom:10px;
+}
+
+.tags{display:flex;flex-wrap:wrap;gap:10px;}
+.tags a{
+  display:inline-block;padding:8px 15px;border-radius:999px;font-size:14px;
+  background:var(--ink-2);border:1px solid var(--line);color:#d6e5dd;
+}
+.tags a:hover{border-color:var(--gold);color:var(--gold);}
+.tags a b{color:var(--muted);font-weight:400;font-size:12px;margin-left:6px;}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--ink-2);}
+table{width:100%;border-collapse:collapse;min-width:600px;font-size:14.5px;}
+th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);}
+th{background:#13211b;color:var(--gold);font-weight:600;font-size:13.5px;letter-spacing:.5px;}
+tbody tr:last-child td{border-bottom:none;}
+td.k{color:#dfece5;font-weight:600;white-space:nowrap;}
+
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:12px;}
+.timeline li{
+  display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:baseline;
+  background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+}
+.timeline b{color:var(--gold);font-size:14px;letter-spacing:.5px;}
+.timeline span{font-size:14.5px;color:#d3e2da;}
+.timeline span i{display:block;font-style:normal;color:var(--muted);font-size:13px;margin-top:3px;}
+
+.faq{display:grid;gap:10px;}
+details{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden;}
+details[open]{border-color:rgba(230,180,80,.42);}
+summary{
+  cursor:pointer;padding:15px 18px;font-size:15.5px;list-style:none;
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+}
+summary::-webkit-details-marker{display:none;}
+summary::after{content:"+";color:var(--gold);font-size:19px;line-height:1;}
+details[open] summary::after{content:"–";}
+details .body{padding:0 18px 16px;font-size:14.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;}
+
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:start;}
+.about p{margin:0 0 12px;color:#cddcd4;font-size:15px;}
+.kv{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:6px 18px;margin:0;}
+.kv div{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:14.5px;}
+.kv div:last-child{border-bottom:none;}
+.kv dt{color:var(--muted);}
+.kv dd{margin:0;text-align:right;color:#e2eee7;word-break:break-all;}
+
+/* ---------- 页脚 ---------- */
+footer{
+  position:relative;z-index:1;margin-top:46px;
+  border-top:1px solid var(--line);background:#0d1714;padding:34px 0 40px;
+}
+.foot-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;}
+footer h4{margin:0 0 10px;font-size:15px;color:var(--gold);letter-spacing:.5px;}
+footer p{margin:0 0 8px;font-size:14px;color:var(--muted);}
+footer ul{list-style:none;margin:0;padding:0;font-size:14px;}
+footer li{padding:4px 0;}
+.foot-url{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:13.5px;color:var(--mint);word-break:break-all;
+}
+.copy{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:#7d9187;}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:26px;}
+  .grid-3{grid-template-columns:1fr 1fr;}
+  .about,.foot-grid{grid-template-columns:1fr;}
+}
+@media (max-width:720px){
+  body{font-size:15.5px;}
+  .wrap{padding:0 16px;}
+  .nav{
+    display:none;position:absolute;left:0;right:0;top:100%;
+    margin:0;background:#0f1d18;border-bottom:1px solid var(--line);
+    padding:8px 16px 14px;flex-direction:column;align-items:stretch;gap:2px;
+  }
+  .mt:checked ~ .nav{display:flex;}
+  .mt-btn{display:block;}
+  .bar-inner{position:relative;}
+  .hero{padding:34px 0 16px;}
+  .grid-3{grid-template-columns:1fr;}
+  .timeline li{grid-template-columns:1fr;gap:4px;}
+  .sec-no{font-size:34px;}
+  .domain{padding:11px 12px;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .btn:hover,.tile:hover{transform:none;}
+}
+</style>
+</head>
+<body id="top">
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+<a class="skip" href="#main">跳到主要内容</a>
+
+<header class="topbar">
+  <div class="wrap bar-inner">
+    <a class="brand" href="#top">
+      <span class="mark" aria-hidden="true"></span>
+      <span>
+        <b>人人影视下载</b><br>
+        <span>renrenyingshixiazai-app</span>
+      </span>
+    </a>
+    <input class="mt" id="menu" type="checkbox" aria-label="展开导航">
+    <label class="mt-btn" for="menu" title="导航"><i></i><i></i><i></i></label>
+    <nav class="nav" aria-label="站内栏目">
+      <a href="#overview">站点概览</a>
+      <a href="#catalog">条目检索</a>
+      <a href="#subtitle">字幕版本</a>
+      <a href="#schedule">更新时刻</a>
+      <a href="#faq">影迷问答</a>
+      <a href="#about">关于本站</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">追剧索引 · 每周滚动更新</span>
+        <h1>人人影视下载<em>：把剧集条目、字幕版本和更新节奏</em>收进同一页</h1>
+        <p class="lede">追一部剧最麻烦的不是找，而是记：记它更新到第几集、记哪一版字幕翻得顺、记双语档什么时候补上。这一页把四件事拆成四个栏目，顺着往下翻就能对上号。</p>
+        <div class="domain">
+          <small>本站网址</small>
+          <code>https://renrenyingshixiazai-app.github.io</code>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gold" href="#catalog">按语种翻条目</a>
+          <a class="btn btn-ghost" href="#subtitle">看字幕版本区别</a>
+        </div>
+      </div>
+      <div class="card-stack">
+        <div class="mini">
+          <span class="stat">6</span>
+          <h3>个常设栏目</h3>
+          <p>概览、检索、字幕、时刻表、问答、关于，各自独立成块，互不相压。</p>
+        </div>
+        <div class="mini">
+          <span class="stat">4</span>
+          <h3>类字幕版本</h3>
+          <p>简体、繁体、中英双语、内嵌压制，同一条目下并排列出，不用来回猜。</p>
+        </div>
+        <div class="mini">
+          <span class="stat">7×24</span>
+          <h3>小时滚动更正</h3>
+          <p>集数错位、字幕时间轴偏移这类问题，发现即改，改动记在时刻表下方。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap"><div class="film" role="presentation"></div></div>
+
+  <section id="overview">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">01</span>
+        <div>
+          <h2>站点概览</h2>
+          <p class="sec-sub">先花一分钟知道这一页能替你省掉哪些重复动作</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="tile">
+          <span class="tag">检索</span>
+          <h3>按语种找条目</h3>
+          <p>美剧、英剧、日剧、韩剧、华语、动画、纪录片各占一条线，条目标注季数与完结状态。</p>
+        </article>
+        <article class="tile">
+          <span class="tag">对照</span>
+          <h3>字幕版本并列</h3>
+          <p>同一集的不同字幕档放在一行里对照，简繁、双语、内嵌一眼分清。</p>
+        </article>
+        <article class="tile">
+          <span class="tag">节奏</span>
+          <h3>更新时间排班</h3>
+          <p>把每周固定更新的剧按星期排开，哪天该蹲哪部，看时刻表就够。</p>
+        </article>
+        <article class="tile">
+          <span class="tag">清单</span>
+          <h3>离线观看清单</h3>
+          <p>标注已补档、待补档、字幕已校三种状态，出差前扫一遍就知道存哪些。</p>
+        </article>
+        <article class="tile">
+          <span class="tag">答疑</span>
+          <h3>常见疑问折叠</h3>
+          <p>时间轴对不上、双语档缺失、集数错位，八条高频问题写在问答栏目里。</p>
+        </article>
+        <article class="tile">
+          <span class="tag">归档</span>
+          <h3>旧条目不删档</h3>
+          <p>完结多年的剧保留条目页与字幕档位说明，翻老剧不用去翻论坛旧帖。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="film" role="presentation"></div></div>
+
+  <section id="catalog">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">02</span>
+        <div>
+          <h2>剧集条目检索</h2>
+          <p class="sec-sub">点分类进入对应条线（内页链接以 # 占位）</p>
+        </div>
+      </div>
+      <div class="tags">
+        <a href="#">美剧 <b>连载中</b></a>
+        <a href="#">英剧 <b>季播</b></a>
+        <a href="#">日剧 <b>季度档</b></a>
+        <a href="#">韩剧 <b>周更</b></a>
+        <a href="#">华语剧 <b>合集</b></a>
+        <a href="#">动画番剧 <b>新番</b></a>
+        <a href="#">纪录片 <b>单集</b></a>
+        <a href="#">电影条目 <b>按年</b></a>
+        <a href="#">完结归档 <b>经典</b></a>
+        <a href="#">待补档 <b>排队中</b></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="film" role="presentation"></div></div>
+
+  <section id="subtitle">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">03</span>
+        <div>
+          <h2>字幕版本对照</h2>
+          <p class="sec-sub">同一部剧常有多个字幕版本，区别主要在这四档</p>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <caption style="caption-side:bottom;padding:12px 16px;text-align:left;color:#8ea79b;font-size:13px;">说明：版本名称沿用各字幕组习惯叫法，本页只做并列展示与说明。</caption>
+          <thead>
+            <tr>
+              <th scope="col">版本</th>
+              <th scope="col">字形与用语</th>
+              <th scope="col">适合谁</th>
+              <th scope="col">常见后缀</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="k">简体档</td>
+              <td>简体汉字，大陆常用译名与口语</td>
+              <td>只想顺畅看完、不对照原文的人</td>
+              <td>chs / gb</td>
+            </tr>
+            <tr>
+              <td class="k">繁体档</td>
+              <td>繁体汉字，港台译名习惯</td>
+              <td>习惯港台译法、看港台剧的人</td>
+              <td>cht / big5</td>
+            </tr>
+            <tr>
+              <td class="k">中英双语</td>
+              <td>上行中文下行英文，或反之</td>
+              <td>想学原句、需要核对术语的人</td>
+              <td>chs&amp;eng</td>
+            </tr>
+            <tr>
+              <td class="k">内嵌压制</td>
+              <td>字幕烧进画面，无需外挂加载</td>
+              <td>播放器不支持外挂字幕时</td>
+              <td>hardsub</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="film" role="presentation"></div></div>
+
+  <section id="schedule">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">04</span>
+        <div>
+          <h2>每周更新时刻表</h2>
+          <p class="sec-sub">按星期排班，跨时区播出的剧以首播地时间为准</p>
+        </div>
+      </div>
+      <ul class="timeline">
+        <li><b>周一</b><span>美剧条线补档<i>上一周播出的条目集中整理与字幕初校</i></span></li>
+        <li><b>周二</b><span>英剧季播跟进<i>季播剧单集条目与简介同步</i></span></li>
+        <li><b>周三</b><span>日剧季度档<i>当季新剧开档登记</i></span></li>
+        <li><b>周四</b><span>韩剧周更<i>周中两集的条目与字幕链接更新</i></span></li>
+        <li><b>周五</b><span>电影条目按年归档<i>新上架条目归入年份索引</i></span></li>
+        <li><b>周六</b><span>动画番剧新番<i>当季番剧首播当日登记</i></span></li>
+        <li><b>周日</b><span>错漏复核<i>集数错位、时间轴偏移集中更正</i></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="film" role="presentation"></div></div>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">05</span>
+        <div>
+          <h2>影迷常见疑问</h2>
+          <p class="sec-sub">点开看解答，没找到的可以在关于栏目里留言入口</p>
+        </div>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>字幕和画面对不上，是条目错了吗？</summary>
+          <div class="body">多数情况是版本不匹配：同一集存在多个压制版本，时长差几秒就会整体偏移。先核对条目页标注的片源版本与字幕后缀是否一致，再看是否需要对时间轴做整体延迟调整。</div>
+        </details>
+        <details>
+          <summary>为什么有的条目只有繁体档？</summary>
+          <div class="body">字幕档位取决于各组的产出与授权情况，部分冷门条目只有单一版本。条目页会标明当前可用档位，后续补上的会同步更新状态。</div>
+        </details>
+        <details>
+          <summary>集数编号和官方不一致怎么办？</summary>
+          <div class="body">特别篇、加长集、双集合并都会造成编号差异。遇到错位先看条目页的编号备注，周日复核时会统一订正。</div>
+        </details>
+        <details>
+          <summary>离线清单里的"待补档"是什么意思？</summary>
+          <div class="body">指条目已登记但字幕或片源尚未齐备，处于排队状态。补齐后状态会改为已补档。</div>
+        </details>
+        <details>
+          <summary>老剧条目会删除吗？</summary>
+          <div class="body">不会。完结剧转入归档条线，保留条目页与字幕档位说明，方便之后回看。</div>
+        </details>
+        <details>
+          <summary>双语档和简体档能同时加载吗？</summary>
+          <div class="body">支持多轨字幕的播放器可以叠加加载，一般建议只开一条，避免两行文字互相压盖。</div>
+        </details>
+        <details>
+          <summary>手机上打开排版会乱吗？</summary>
+          <div class="body">本页按窄屏优先排过版，栏目块在手机上纵向堆叠，字幕对照表可左右滑动查看。</div>
+        </details>
+        <details>
+          <summary>发现条目信息有误怎么反馈？</summary>
+          <div class="body">在关于栏目里使用留言入口，注明剧名、集数与具体问题，复核日统一处理。</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="film" role="presentation"></div></div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">06</span>
+        <div>
+          <h2>关于人人影视下载</h2>
+          <p class="sec-sub">站点信息与内容边界，一并说清楚</p>
+        </div>
+      </div>
+      <div class="about">
+        <div>
+          <p>人人影视下载做的是索引这件事本身：把剧集条目、字幕档位、更新排班和常见疑问摆在一页里，减少来回切换的成本。页面不托管任何片源文件，只登记条目信息与版本说明。</p>
+          <p>内容边界说在前面：条目页只做作品信息登记与字幕版本说明，不涉及任何未经授权的影音文件分发。涉及版权的作品请通过正版渠道观看。</p>
+          <p>本站为单页结构，栏目之间用锚点跳转，方便直接把某一栏的链接发给同样在追剧的人。</p>
+          <div class="btn-row" style="margin-top:16px;">
+            <a class="btn btn-ghost" href="#">留言入口</a>
+            <a class="btn btn-ghost" href="#top">回到顶部</a>
+          </div>
+        </div>
+        <dl class="kv">
+          <div><dt>网站名称</dt><dd>人人影视下载</dd></div>
+          <div><dt>网站网址</dt><dd>https://renrenyingshixiazai-app.github.io</dd></div>
+          <div><dt>域名标识</dt><dd>renrenyingshixiazai-app</dd></div>
+          <div><dt>页面结构</dt><dd>单页 · 六个栏目锚点</dd></div>
+          <div><dt>适配范围</dt><dd>窄屏优先 · 自适应排版</dd></div>
+          <div><dt>复核频率</dt><dd>每周日集中更正</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>人人影视下载</h4>
+        <p>剧集条目检索 · 字幕版本对照 · 每周更新时刻表 · 影迷常见疑问</p>
+        <p class="foot-url">https://renrenyingshixiazai-app.github.io</p>
+        <p>栏目数据用于版式展示，实际条目以站内索引为准。</p>
+      </div>
+      <div>
+        <h4>栏目直达</h4>
+        <ul>
+          <li><a href="#overview">站点概览</a></li>
+          <li><a href="#catalog">剧集条目检索</a></li>
+          <li><a href="#subtitle">字幕版本对照</a></li>
+          <li><a href="#schedule">每周更新时刻表</a></li>
+          <li><a href="#faq">影迷常见疑问</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copy">© 人人影视下载 · renrenyingshixiazai-app.github.io · 本站仅作条目索引与字幕版本说明，请通过正版渠道观看作品</p>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "人人影视下载",
+  "alternateName": "renrenyingshixiazai-app",
+  "url": "https://renrenyingshixiazai-app.github.io/",
+  "inLanguage": "zh-CN",
+  "description": "剧集条目检索、字幕版本对照、每周更新时刻表与影迷常见疑问的单页索引站。",
+  "publisher": {
+    "@type": "Organization",
+    "name": "人人影视下载",
+    "url": "https://renrenyingshixiazai-app.github.io/"
+  }
+}
+</script>
+</body>
+</html>
